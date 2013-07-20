@@ -2,7 +2,8 @@
 	"name" : "Template",
 	"files" : [
 		"template.php",
-		"template.class.php"
+		"template.class.php",
+		"render.class.php"
 	],
 	"dependencies" : [
 	]

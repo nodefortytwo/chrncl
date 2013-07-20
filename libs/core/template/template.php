@@ -7,16 +7,30 @@ function template_init(){
 
 	
 	Template::addJs('js/jquery.js');
-	Template::addJs('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js');
+	//Template::addJs('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js');
 	Template::addJs('js/bootstrap.min.js');
 	//Template::addJs('js/handlebars.js');
 	//Template::addJs('js/ember.js');
 	//Template::addJs('js/ember-data-latest.min.js');
-	Template::addJs('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js');
+	//Template::addJs('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.0.0/moment.min.js');
 	Template::addJs('js/holder.js');
 	//Template::addJs('js/hammer.min.js');
 	//Template::addJs('js/jquery.hammer.min.js');
 	//Template::addJs('js/scrollfix.js');
 
 	Template::addVariable('project_name', 'Chrncl');
+}
+
+function l($text, $url, $class = '', $root = false, $title = '') {
+    if (empty($title)) {$title = trim(strip_tags($text));
+    }
+
+    if (!empty($title)) {$title = 'title="' . trim($title) . '"';
+    }
+    if (!empty($class)) {$class = 'class="' . trim($class) . '"';
+    }
+
+    $url = get_url($url);
+    $return = '<a href="' . $url . '" ' . $class . ' ' . $title . '>' . $text . '</a>';
+    return $return;
 }

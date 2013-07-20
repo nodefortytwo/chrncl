@@ -12,7 +12,19 @@ class UserUserRoute extends Route{
 	}
 
 	function render(){
-		var_dump($this->user);
+		$user_profile = new Partial('templates/user.profile.partial.html');
+		$user_profile->addVariables(array(
+				'name' => $this->user['name'],
+				'email' => $this->user['email']
+			));
+
+		$page = new Template();
+		$page->addTemplate('templates/user.html');
+		$page->addVariable('user_profile', $user_profile->render());
+		$page->addVariable('stories', story_add_btn());
+
+
+		$this->output = $page->render();
 	}
 
 }

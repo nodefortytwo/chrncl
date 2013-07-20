@@ -6,16 +6,21 @@ class Template{
 		//$this->addFile('template', 'templates/default.wrapper.html', System::$core_modules['template'], 'global');
 	}
 
-	public static function addCss($path){
-		$module = get_calling_module();
-		self::addFile('css', $path, get_calling_module(), 'local');
+	public static function addCss($path, $module = null){
+		if(is_null($module)){
+			$module = get_calling_module();
+		}
+		self::addFile('css', $path, $module, 'local');
 	}
 
-	public static function addJs($path){
-		self::addFile('js', $path, get_calling_module(), 'local');
+	public static function addJs($path, $module = null){
+		if(is_null($module)){
+			$module = get_calling_module();
+		}
+		self::addFile('js', $path, $module, 'local');
 	}
 
-	public static function addTemplate($path, $type="html"){
+	public static function addTemplate($path, $type="html", $module = null){
 		//self::addFile('template', $path, get_calling_module(), 'global');
 		self::$content[] = array(
 							'source' => 'file',
@@ -135,7 +140,9 @@ class Template{
 
 		$this->addVariable('content', $content);
 		$this->addVariable('page_title', Config::get('site_name', 'New Site'));
-
+		if(!isset(self::$vars['container_class'])){
+			$this->addVariable('container_class', 'container');
+		}
 		$content = file_get_contents('./libs/core/template/templates/default.wrapper.html');
 		foreach(self::$vars as $var=>$val){
 			$content = str_replace('{{'.$var.'}}', $val, $content);
@@ -146,13 +153,35 @@ class Template{
 	}
 }
 //partials are link normal tempalates except they only render the body content;
-class Partial extends Template{
+class Partial{
+	public $content = '', $vars = array();
+	public function addCss($path){
+		Template::addCss($path, get_calling_module());
+	}
 
-	public function __construct($file){
-		$this->addFile('template', $file, get_calling_module(), 'global');
+	public function addJs($path){
+		Template::addJs($path, get_calling_module());
+	}
+
+	public function __construct($file, $type = 'html'){
+		$module = get_calling_module();
+		$this->content = file_get_contents($module['path'] . '/' .$file);
+	}
+
+	public function addVariable($var, $val){
+		$this->vars[$var] = $val;
+	}
+
+	public function addVariables($array){
+		foreach($array as $var => $val){
+			$this->addVariable($var, $val);
+		}
 	}
 
 	public function render(){
-
+		foreach($this->vars as $var=>$val){
+			$this->content = str_replace('{{'.$var.'}}', $val, $this->content);
+		}
+		return $this->content;
 	}
 }

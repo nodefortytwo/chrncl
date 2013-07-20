@@ -69,8 +69,8 @@ class UserSimpleAuth implements iAuthMethod{
 	}
 	public function registerFormSubmit(){
 
-		if(empty(get('email'))){redirect('/');}
-		if(empty(get('password'))){redirect('/');}
+		if(is_null(get('email'))){redirect('/');}
+		if(is_null(get('password'))){redirect('/');}
 		if(get('password') != get('password2')){redirect('/');}
 
 		$email = get('email');
@@ -79,7 +79,7 @@ class UserSimpleAuth implements iAuthMethod{
 		if($user){
 			$this->login($email, $password);
 		}else{
-			if(mdb()->user->findOne(array('email' => $email))){redirect('/')}
+			if(mdb()->user->findOne(array('email' => $email))){redirect('/');}
 			$user = new User();
 			$user['name'] = get('name', 'Anon');
 			$user['email'] = $email;
