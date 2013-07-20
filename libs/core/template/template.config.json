@@ -1,0 +1,9 @@
+{
+	"name" : "Template",
+	"files" : [
+		"template.php",
+		"template.class.php"
+	],
+	"dependencies" : [
+	]
+}

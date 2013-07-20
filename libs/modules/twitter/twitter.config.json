@@ -1,0 +1,12 @@
+{
+	"name" : "Twitter",
+	"files" : [
+		"twitter.php",
+		"routes/*",
+		"classes/*",
+		"libs/twitteroauth/twitteroauth.php",
+		"libs/twitteroauth/OAuth.php"
+	],
+	"dependencies" : [
+	]
+}

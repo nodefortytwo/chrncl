@@ -1,0 +1,9 @@
+{
+	"name" : "Form",
+	"files" : [
+		"form.class.php"
+	],
+	"dependencies" : [
+		"error"
+	]
+}

@@ -1,0 +1,12 @@
+{
+	"host" : "chrncl",
+	"files" : "public",
+	"db_name" : "chrncl",
+	"site_name" : "Chrncl",
+	"auth_method" : "simple",
+	"twitter" : {
+		"key" : "vaQ0XmX8BEwq8uDP4hyBgg",
+		"secret" : "mlmU8i8g62BQpkaxmvjquCVkooeH9GRNETqMQ6tlSg",
+		"callback" : "/twitter/callback/"
+	} 
+}
