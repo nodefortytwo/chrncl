@@ -1,0 +1,10 @@
+{
+	"name" : "Story",
+	"files" : [
+		"story.php",
+		"routes/*",
+		"classes/*"
+	],
+	"dependencies" : [
+	]
+}

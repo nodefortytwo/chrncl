@@ -106,11 +106,8 @@ class MongoBase implements arrayaccess {
         if (!$this['_id'] && $this->_id) {
             $this['_id'] = $this->_id;
         }
-        if (method_exists($this, 'save_preprocess')) {
-            call_user_func(array(
-                $this,
-                'save_preprocess'
-            ));
+        if (method_exists($this, 'savePreprocess')) {
+            $this->savePreprocess();
         }
 
         if ($this->exists(false)) {
@@ -261,9 +258,21 @@ class MongoBase implements arrayaccess {
         if (isset($data[$offset_array[$i]])) {
             if (is_array($data[$offset_array[$i]]) && !$final) {
                 return $this->recursiveGet($data[$offset_array[$i]], $offset_array, $i + 1);
-            } else {
-
-                return $data[$offset_array[$i]];
+            } elseif (is_object($data[$offset_array[$i]]) && !$final){
+                if(isset($data[$offset_array[$i]]->obj_type) && $data[$offset_array[$i]]->obj_type == 'MongoBase'){
+                    //this is a MongoBase object so we reconstuct its part of the request, this will trigger it to perform
+                    //it's own recursiveGet and return the results, meta innit.
+                    $param = implode('.',array_splice($offset_array, $i+1));
+                    return $data[$offset_array[$i]][$param];
+                }else{
+                    throw new Exception('Object found during recrusiveGet which cannot be travered');
+                }
+            }else {
+                if($final){
+                    return $data[$offset_array[$i]];
+                }else{
+                    return null;
+                }
             }
         } else {
             return null;
@@ -311,7 +320,19 @@ class MongoBase implements arrayaccess {
             $ret[$field] = $this[$field];
         }
 
-        $ret['id'] = (string) $this['_id'];
+        if(isset($this->actions['view']) && isset($ret['_id'])){
+            $ret['_id'] = Render::link($ret['_id'], $this->actions['view']['url'] . $ret['_id']);
+        }
+        if(array_key_exists('actions', $ret)){
+            $ret['actions'] = '<div class="btn-grp">';
+
+            foreach($this->actions as $action){
+                if(isset($action['hide']) && $action['hide'] === true){continue;}
+                if(!isset($action['class'])){$action['class'] = '';}
+                $ret['actions'] .= Render::link($action['label'], $action['url'] . $this['_id'], 'btn ' . $action['class']);
+            }
+            $ret['actions'] .= '</div>';
+        }
 
         return $ret;
     }

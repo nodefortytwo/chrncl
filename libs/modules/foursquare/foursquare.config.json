@@ -1,0 +1,11 @@
+{
+	"name" : "Foursquare",
+	"files" : [
+		"foursquare.php",
+		"routes/*",
+		"classes/*"
+	],
+	"dependencies" : [
+		
+	]
+}

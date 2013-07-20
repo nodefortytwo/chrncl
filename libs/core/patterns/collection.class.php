@@ -18,10 +18,11 @@ class Collection implements Iterator{
     }
     
     function __get($var) {
-        if (method_exists($this, 'get_' . $var)) {
+        $mname = 'get' . ucfirst($var);
+        if (method_exists($this, $mname)) {
             return call_user_func_array(array(
                 $this,
-                'get_' . $var
+                $mname
             ), array());
         }
     }
@@ -49,14 +50,13 @@ class Collection implements Iterator{
     }
     
     function render($style = 'table', $args = array()) {
-        list($headers, $rows) = $this->get_table_data($args);
+        list($headers, $rows) = $this->getTableData($args);
         foreach($rows as $key=>$row){
             foreach($row as $ckey=>$col){
                 if(is_object($col)){
-
                    switch(get_class($col)){
                        case 'MongoDate':
-                           $row[$ckey] = template_date($col);
+                           $row[$ckey] = Render::Date($col);
                            break;
                        default:
                            $col = (string) $col;
@@ -66,10 +66,10 @@ class Collection implements Iterator{
             }
             $rows[$key] = $row;
         }
-        return template_table($headers, $rows, '');
+        return Render::Table($headers, $rows, '');
     }
     
-    function get_table_data($args = array()){
+    function getTableData($args = array()){
         if (!isset($args['cols'])) {
             $args['cols'] = $this->default_cols;
         }
@@ -77,7 +77,7 @@ class Collection implements Iterator{
         $headers = array_keys($args['cols']);
         $rows = array();
         foreach ($this as $user) {
-            $rows[] = $user->to_array($args['cols']);
+            $rows[] = $user->toArray($args['cols']);
         }
         
         if (isset($args['sort'])) {
@@ -88,17 +88,17 @@ class Collection implements Iterator{
             }
             array_multisort($col, SORT_DESC, $rows);
         }
-        
+
         return array($headers, $rows);
     }
 
-    function from_objects($objects) {
+    function fromObjects($objects) {
         //this is an experiment, a standard array should behave in almost the same way a mongo cursor so this should work.
         $this->cursor = new PseudoCursor($objects);
         $this->cnt = $this->cursor->count();
     }
     
-    function get_ids(){
+    function getIds(){
         $this->ids = array();    
         foreach($this as $res){
             $this->ids[] = $res['_id'];
@@ -106,7 +106,7 @@ class Collection implements Iterator{
         return $this->ids;
     }
     
-    function get_cnt(){
+    function getCnt(){
         $this->cnt = $this->cursor->count();
     }
 

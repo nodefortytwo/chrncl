@@ -9,12 +9,18 @@ class Form {
 
     }
 
+    public static function elem($array){
+        $obj_type = 'FormItem' . ucfirst($array['type']);
+        $obj = new $obj_type($array, array());
+        return $obj->render();
+    }
+
     public function e($array) {
         $obj_type = 'FormItem' . ucfirst($array['type']);
         if($array['type'] == 'File'){
             $this->multipart = true;
         }
-        $this->form[] = new $obj_type($array, $this);
+        $this->form[] = new $obj_type($array, new Form());
     }
 
     public function row($args = array()) {
@@ -475,4 +481,14 @@ class FormItemBoundingBox extends FormItem {
 
         return $html;
     }
-}   
+}
+
+class FormItemTag extends FormItem {
+
+    function render() {
+        $s = new FormItemText(array('id' => $this['id']), $this->form);
+        $html = $s->render();
+
+        return $html;
+    }
+} 

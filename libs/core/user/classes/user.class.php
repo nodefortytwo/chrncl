@@ -5,7 +5,7 @@ class User extends MongoBase{
 
 	public static function registerAuthMethod($class, $name){
 		if(!in_array('iAuthMethod', class_implements($class))){
-			throw new Exception(class_name($class) . ' is not a valid Auth Method because it doesn\'t implement iAuthMethod');
+			throw new Exception(get_class($class) . ' is not a valid Auth Method because it doesn\'t implement iAuthMethod');
 		}
 
 		self::$auth_methods[$name] = $class;

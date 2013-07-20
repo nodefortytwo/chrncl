@@ -20,17 +20,3 @@ function template_init(){
 
 	Template::addVariable('project_name', 'Chrncl');
 }
-
-function l($text, $url, $class = '', $root = false, $title = '') {
-    if (empty($title)) {$title = trim(strip_tags($text));
-    }
-
-    if (!empty($title)) {$title = 'title="' . trim($title) . '"';
-    }
-    if (!empty($class)) {$class = 'class="' . trim($class) . '"';
-    }
-
-    $url = get_url($url);
-    $return = '<a href="' . $url . '" ' . $class . ' ' . $title . '>' . $text . '</a>';
-    return $return;
-}

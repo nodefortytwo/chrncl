@@ -21,7 +21,7 @@ class UserUserRoute extends Route{
 		$page = new Template();
 		$page->addTemplate('templates/user.html');
 		$page->addVariable('user_profile', $user_profile->render());
-		$page->addVariable('stories', story_add_btn());
+		$page->addVariable('stories', story_add_btn() . story_user_get_stories()->render());
 
 
 		$this->output = $page->render();
