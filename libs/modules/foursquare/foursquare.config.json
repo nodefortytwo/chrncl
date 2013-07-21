@@ -3,7 +3,8 @@
 	"files" : [
 		"foursquare.php",
 		"routes/*",
-		"classes/*"
+		"classes/*",
+		"libs/*"
 	],
 	"dependencies" : [
 		

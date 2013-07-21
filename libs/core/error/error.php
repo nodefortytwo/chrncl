@@ -24,7 +24,7 @@ function error_exception($e){
 			echo $error;
 			die();
 		}
-		$route = System::$routes['500'];
+		$route = System::$routes[500];
 		$route->params[] = $eid;
 		$route->exec();
 		die();

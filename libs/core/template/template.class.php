@@ -92,7 +92,7 @@ class Template{
 		$var = '';
 		foreach($js_complied as $file){
 			$file = str_replace('./', '/', $file);
-			$var .= '<script src="'.$file.'?'.md5(rand(0,9999)).'"></script>' . "\n";
+			$var .= '<script src="'.$file.'"></script>' . "\n";
 		}
 
 		$this->addVariable('js', $var);

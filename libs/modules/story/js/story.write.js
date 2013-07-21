@@ -36,10 +36,11 @@
 			$('#story-content').val(content);
 		});
 		editor.on('load', function(){
+			editor.importFile('content', $('#story-content').val());
 			content = editor.exportFile();
 			preview.importFile('content', content);
 			preview.preview();
-			$('#story-content').val(content);
+			//$('#story-content').val(content);
 		});
 		editor.load();
 		

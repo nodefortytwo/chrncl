@@ -8,7 +8,7 @@ class Story extends MongoBase{
 									'class' => 'btn-info'
 								),
 							'edit' => array(
-									'url' => '/story/edit/~/',
+									'url' => '/story/write/~/',
 									'label' => 'Edit',
 									'class' => 'btn-info'
 								)
@@ -17,6 +17,7 @@ class Story extends MongoBase{
 	public function loadEntities(){
 
 		$this['author'] = new User($this['author']);
+		$this['location.obj'] = new Venue($this['location.id']);
 
 	}
 
@@ -24,6 +25,7 @@ class Story extends MongoBase{
 		if(get_class($this['author']) != 'MongoId'){
 			$this['author'] = $this['author']['_id'];
 		}
+		unset($this['location.obj']);
 		parent::save();
 	}
 }

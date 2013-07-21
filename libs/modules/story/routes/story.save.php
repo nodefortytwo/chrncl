@@ -11,6 +11,12 @@ class StorySaveRoute extends Route{
 		if(!$this->user = User::currentUser()){
 			throw new Exception('User not logged in');
 		}
+		if(!isset($this->params['tags'])){
+			$this->params['tags'] = array();
+		}else{
+			$this->params['tags'] = explode(',', $this->params['tags']);
+		}
+		$this->location = new Venue($this->params['location']);
 		return true;
 	}
 
@@ -20,10 +26,17 @@ class StorySaveRoute extends Route{
 			$this->story['created'] = new MongoDate();
 			$this->story['stats'] = array('likes' => 0, 'reads' => 0);
 		}
+
+		foreach($this->params['tags'] as $tag){
+			add_tag($tag);
+		}
+
 		$this->story['title'] = $this->params['story_title'];
 		$this->story['content'] = $this->params['story_content'];
-		$this->story['location_id'] = $this->params['location'];
-		$this->story['tags'] = explode(',', $this->params['tags']);
+		$this->story['location.id'] = $this->location['_id'];
+		$this->story['location.lat'] = $this->location['location.lat'];
+		$this->story['location.lng'] = $this->location['location.lng'];
+		$this->story['tags'] = $this->params['tags'];
 		$this->story['author'] = $this->user['_id'];
 		$this->story['updated'] = new MongoDate();
 

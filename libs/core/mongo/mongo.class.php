@@ -337,5 +337,13 @@ class MongoBase implements arrayaccess {
         return $ret;
     }
 
+    function render($style = 'table', $args = array()) {
+        $mname = 'render'.ucfirst($style);
+        if(method_exists($this, $mname)){
+            return call_user_func(array($this, $mname), $args);
+        }else{
+            throw new Exception('Style ' . $style . ' has not been implemented');
+        }   
+    }
 }
 

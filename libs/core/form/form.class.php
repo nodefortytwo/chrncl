@@ -486,7 +486,21 @@ class FormItemBoundingBox extends FormItem {
 class FormItemTag extends FormItem {
 
     function render() {
-        $s = new FormItemText(array('id' => $this['id']), $this->form);
+
+        Template::addJs('js/select2.min.js');
+        Template::addJs('js/form.tag.js');
+        Template::addCss('css/select2.css');
+
+        if(is_array($this['default'])){
+            $this['default'] = implode(', ',$this['default']);
+        }
+
+        $s = new FormItemText(array(
+            'id' => $this['id'],
+            'default' => $this['default'],
+            'label' => $this['label'],
+            'class' => 'tagbox'
+            ), $this->form);
         $html = $s->render();
 
         return $html;

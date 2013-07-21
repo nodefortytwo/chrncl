@@ -7,6 +7,7 @@ function template_init(){
 
 	
 	Template::addJs('js/jquery.js');
+	Template::addJs('js/jquery.ui.map.full.min.js');
 	//Template::addJs('//cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js');
 	Template::addJs('js/bootstrap.min.js');
 	//Template::addJs('js/handlebars.js');

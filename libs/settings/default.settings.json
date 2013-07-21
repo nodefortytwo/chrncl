@@ -8,5 +8,9 @@
 		"key" : "vaQ0XmX8BEwq8uDP4hyBgg",
 		"secret" : "mlmU8i8g62BQpkaxmvjquCVkooeH9GRNETqMQ6tlSg",
 		"callback" : "/twitter/callback/"
-	} 
+	},
+	"foursquare" : {
+		"client_id" : "MSEKRVY1DRH0UHH3UQIERMBTM2BMUCPDFSMGFHYPYJDYUOC0",
+		"client_secret" : "JSN0Q0P1IFQXSV3K1NAHHFKVJNFV5PAIZAT2UPLO4UCFIMOM"
+	}
 }

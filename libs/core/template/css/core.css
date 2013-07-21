@@ -99,6 +99,32 @@ table{
 .epic-editor{background-color: #464646; border:1px solid #464646;}
 .epic-editor-preview{background-color: #FAFAFA; border:1px solid #464646;}
 
+.search-list-item{
+	line-height:32px;
+	font-weight: bold;
+}
+.foursquare-location-search{
+	position: relative;
+}
+.list-container{
+	height:200px;
+	position: absolute;
+	top:55px;
+	overflow-y:scroll;
+	border: 1px solid #efefef;
+	background-color: white;
+	display: none;
+}
+
+.search-list-item{
+	border-bottom: 1px solid #efefef;
+}
+
+.venue-partial{
+	border-width:1px 1px 0 1px;
+	border-color: #efefef;
+}
+
 /* Large desktop */
 @media (min-width: 1200px) { 
 	body{

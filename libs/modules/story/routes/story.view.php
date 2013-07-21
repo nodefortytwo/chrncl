@@ -19,6 +19,7 @@ class StoryViewRoute extends Route{
 		$page->addVariable('story_title', $this->story['title']);
 		$page->addVariable('story_content', Render::markDown($this->story['content']));
 		$page->addVariable('author', $this->story['author.name']);
+		$page->addVariable('location', $this->story['location.obj']->render('partial'));
 		$this->output = $page->render();
 	}
 

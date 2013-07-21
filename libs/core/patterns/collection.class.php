@@ -50,6 +50,15 @@ class Collection implements Iterator{
     }
     
     function render($style = 'table', $args = array()) {
+        $mname = 'render'.ucfirst($style);
+        if(method_exists($this, $mname)){
+            return call_user_func(array($this, $mname), $args);
+        }else{
+            throw new Exception('Style ' . $style . ' has not been implemented');
+        }   
+    }
+
+    function renderTable($args){
         list($headers, $rows) = $this->getTableData($args);
         foreach($rows as $key=>$row){
             foreach($row as $ckey=>$col){

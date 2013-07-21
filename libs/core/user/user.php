@@ -8,6 +8,7 @@ function user_routes(){
 	$routes['user/current'] = new UserCurrentRoute();
 	$routes['user/login'] = new UserLoginRoute();
 	$routes['user/register'] = new UserRegisterRoute();
+	$routes['user/update/location'] = new UserUpdateLocationRoute();
 	return $routes;
 }
 
